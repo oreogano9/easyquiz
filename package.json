@@ -1,0 +1,9 @@
+{
+  "name": "quiz-combo-desk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minimal localhost quiz presenter desk with combo rewards and punishments.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

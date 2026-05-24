@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Combo Desk</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="desk">
+      <header class="topbar">
+        <div>
+          <h1>Quiz Combo Desk</h1>
+          <p id="bankSummary">500 questions</p>
+        </div>
+        <div class="progress">
+          <strong id="progressCount">0 / 500</strong>
+        </div>
+      </header>
+
+      <section class="stage" aria-live="polite">
+        <div class="meta">
+          <span id="questionDifficulty">Easy</span>
+          <span id="questionPosition">Question 1</span>
+          <span id="timerDisplay">Start</span>
+        </div>
+
+        <h2 id="questionPrompt"></h2>
+
+        <section id="outcomePanel" class="outcome-panel neutral hidden" role="button" tabindex="0">
+          <p id="outcomeLabel"></p>
+          <strong id="outcomeValue"></strong>
+        </section>
+
+        <section class="answer-panel">
+          <p>Answer</p>
+          <strong id="answerText"></strong>
+        </section>
+
+        <div class="actions">
+          <button id="startTimerButton" type="button">Start timer</button>
+          <button id="correctButton" class="correct" type="button">Correct</button>
+          <button id="wrongButton" class="wrong" type="button">Wrong</button>
+          <button id="skipButton" type="button">Skip</button>
+          <button id="nextButton" class="hidden" type="button">Next question</button>
+        </div>
+      </section>
+
+      <section class="settings" aria-label="Settings">
+        <form id="settingsForm">
+          <label>
+            <span>Lowest reward</span>
+            <input id="rewardBase" type="number" min="1" max="600" value="10" />
+          </label>
+          <label>
+            <span>Reward scaling</span>
+            <select id="rewardScaling">
+              <option value="flat">Flat</option>
+              <option value="linear">Linear</option>
+              <option value="accelerated" selected>Accelerated</option>
+            </select>
+          </label>
+          <label>
+            <span>Reward step</span>
+            <input id="rewardStep" type="number" min="0" max="300" value="12" />
+          </label>
+          <label>
+            <span>Lowest punishment</span>
+            <input id="punishmentBase" type="number" min="1" max="99" value="1" />
+          </label>
+          <label>
+            <span>Punishment scaling</span>
+            <select id="punishmentScaling">
+              <option value="flat">Flat</option>
+              <option value="linear">Linear</option>
+              <option value="accelerated" selected>Accelerated</option>
+            </select>
+          </label>
+          <label>
+            <span>Punishment step</span>
+            <input id="punishmentStep" type="number" min="0" max="20" value="1" />
+          </label>
+          <label>
+            <span>Punishment length</span>
+            <input id="punishmentLengthBase" type="number" min="1" max="600" value="10" />
+          </label>
+          <label>
+            <span>Length step</span>
+            <input id="punishmentLengthStep" type="number" min="0" max="300" value="12" />
+          </label>
+          <label>
+            <span>Correct sound</span>
+            <select id="correctSound">
+              <option value="chime" selected>Chime</option>
+              <option value="blip">Blip</option>
+              <option value="click">Click</option>
+              <option value="off">Off</option>
+            </select>
+          </label>
+          <label>
+            <span>Wrong sound</span>
+            <select id="wrongSound">
+              <option value="buzz" selected>Buzz</option>
+              <option value="thud">Thud</option>
+              <option value="drop">Drop</option>
+              <option value="off">Off</option>
+            </select>
+          </label>
+          <label>
+            <span>Timer sound</span>
+            <select id="timerSound">
+              <option value="alarm" selected>Alarm</option>
+              <option value="double">Double beep</option>
+              <option value="bell">Bell</option>
+              <option value="off">Off</option>
+            </select>
+          </label>
+          <label>
+            <span>Question timer</span>
+            <input id="questionSeconds" type="number" min="5" max="600" value="5" />
+          </label>
+          <label class="toggle">
+            <input id="timerEnabled" type="checkbox" checked />
+            <span>Timer enabled</span>
+          </label>
+          <label class="toggle">
+            <input id="timerSoundEnabled" type="checkbox" checked />
+            <span>Timer end sound</span>
+          </label>
+        </form>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

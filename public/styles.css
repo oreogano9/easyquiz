@@ -1,0 +1,280 @@
+:root {
+  color-scheme: dark;
+  --bg: #000;
+  --panel: #080808;
+  --panel-strong: #101010;
+  --line: #2a2a2a;
+  --text: #fff;
+  --muted: #a0a0a0;
+  --green: #28d66d;
+  --green-soft: rgba(40, 214, 109, 0.15);
+  --red: #ff4545;
+  --red-soft: rgba(255, 69, 69, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background: var(--bg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input,
+select {
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--panel-strong);
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.desk {
+  width: min(1180px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 22px 0 34px;
+}
+
+.topbar,
+.stage,
+.settings {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 2.2vw, 2.3rem);
+}
+
+.topbar p,
+.meta span,
+.answer-panel p,
+.outcome-panel p,
+label span {
+  color: var(--muted);
+}
+
+.progress {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+}
+
+.progress strong {
+  font-size: 1.35rem;
+}
+
+.stage {
+  display: grid;
+  gap: 24px;
+  margin-top: 16px;
+  padding: clamp(20px, 4vw, 48px);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.meta span {
+  padding: 8px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-strong);
+  font-weight: 800;
+}
+
+#timerDisplay.ended {
+  color: var(--red);
+  border-color: var(--red);
+}
+
+#questionPrompt {
+  min-height: 170px;
+  font-size: clamp(2.4rem, 5vw, 5.8rem);
+  line-height: 1.04;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.outcome-panel {
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  min-height: 230px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.outcome-panel.good,
+.outcome-panel.bad {
+  cursor: pointer;
+}
+
+.outcome-panel strong {
+  font-size: clamp(4rem, 11vw, 10rem);
+  line-height: 0.9;
+}
+
+.outcome-panel.good {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-soft);
+}
+
+.outcome-panel.bad {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red-soft);
+}
+
+.answer-panel {
+  display: grid;
+  gap: 5px;
+  padding: 18px;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  text-align: center;
+  background: var(--panel-strong);
+}
+
+.answer-panel strong {
+  font-size: clamp(1.35rem, 2vw, 2.4rem);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.actions button {
+  min-height: 76px;
+  padding: 0 22px;
+  font-size: 1.15rem;
+}
+
+.correct {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-soft);
+}
+
+.wrong {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red-soft);
+}
+
+#nextButton {
+  grid-column: 1 / -1;
+}
+
+.settings {
+  margin-top: 16px;
+  padding: 18px;
+}
+
+.settings form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+label span {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0 12px;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 70px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-strong);
+}
+
+.toggle input {
+  width: 20px;
+  min-height: 20px;
+  accent-color: var(--green);
+}
+
+.toggle span {
+  color: var(--text);
+  text-transform: none;
+}
+
+@media (max-width: 820px) {
+  .desk {
+    width: min(100% - 16px, 1180px);
+    padding-top: 8px;
+  }
+
+  .topbar,
+  .actions,
+  .settings form {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    display: grid;
+  }
+
+  .progress {
+    justify-items: start;
+  }
+
+  #questionPrompt {
+    min-height: 0;
+    font-size: clamp(2.1rem, 10vw, 4rem);
+  }
+}
