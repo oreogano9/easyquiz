@@ -13,6 +13,8 @@ Open `http://127.0.0.1:3000`.
 ## Combo rules
 
 - Questions are selected randomly.
+- Progress, streaks, and the current question are saved in localStorage.
+- Restart clears saved progress and starts fresh.
 - The question timer starts only when the presenter clicks Start timer.
 - The default question timer is `5s`.
 - Skip only moves to another question; it does not change streaks or progress.

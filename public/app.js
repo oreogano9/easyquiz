@@ -216,7 +216,9 @@ function buildQuestions(seeds, count, difficulty) {
   });
 }
 
+const STORAGE_KEY = "quiz-combo-desk-progress-v1";
 const questions = [...buildQuestions(easySeeds, 300, "easy"), ...buildQuestions(mediumSeeds, 200, "medium")];
+const questionById = new Map(questions.map((question) => [question.id, question]));
 const state = {
   answeredIds: new Set(),
   badStreak: 0,
@@ -267,6 +269,7 @@ const nodes = {
   rewardBase: document.getElementById("rewardBase"),
   rewardScaling: document.getElementById("rewardScaling"),
   rewardStep: document.getElementById("rewardStep"),
+  restartButton: document.getElementById("restartButton"),
   settingsForm: document.getElementById("settingsForm"),
   skipButton: document.getElementById("skipButton"),
   startTimerButton: document.getElementById("startTimerButton"),
@@ -302,6 +305,50 @@ function readSettings() {
   settings.questionSeconds = getNumber(nodes.questionSeconds, 5, 5, 600);
   settings.timerEnabled = nodes.timerEnabled.checked;
   settings.timerSoundEnabled = nodes.timerSoundEnabled.checked;
+}
+
+function saveProgress() {
+  try {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        answeredIds: [...state.answeredIds],
+        badStreak: state.badStreak,
+        currentQuestionId: state.currentQuestion ? state.currentQuestion.id : null,
+        goodStreak: state.goodStreak,
+      }),
+    );
+  } catch {
+    // Progress saving is best-effort; gameplay should not depend on storage access.
+  }
+}
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+
+    const saved = JSON.parse(raw);
+    const ids = Array.isArray(saved.answeredIds) ? saved.answeredIds : [];
+    state.answeredIds = new Set(ids.filter((id) => questionById.has(id)));
+
+    const goodStreak = Number(saved.goodStreak);
+    const badStreak = Number(saved.badStreak);
+    state.goodStreak = Number.isFinite(goodStreak) ? Math.max(0, Math.trunc(goodStreak)) : 0;
+    state.badStreak = Number.isFinite(badStreak) ? Math.max(0, Math.trunc(badStreak)) : 0;
+
+    return questionById.get(saved.currentQuestionId) || null;
+  } catch {
+    return null;
+  }
+}
+
+function clearProgress() {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // Ignore storage failures; the in-memory reset still applies.
+  }
 }
 
 function growth(streak, step, scaling) {
@@ -429,6 +476,7 @@ function randomQuestion(excludeId = null) {
   let pool = questions.filter((question) => !state.answeredIds.has(question.id));
   if (pool.length === 0) {
     state.answeredIds.clear();
+    saveProgress();
     pool = [...questions];
   }
   const filtered = pool.length > 1 ? pool.filter((question) => question.id !== excludeId) : pool;
@@ -454,6 +502,7 @@ function setQuestion(question) {
   nodes.skipButton.classList.remove("hidden");
   nodes.nextButton.classList.add("hidden");
   setQuestionTimerIdle();
+  saveProgress();
 }
 
 function showReward() {
@@ -509,6 +558,7 @@ function gradeCorrect() {
   state.answeredIds.add(state.currentQuestion.id);
   state.goodStreak += 1;
   state.badStreak = 0;
+  saveProgress();
   showReward();
   showResultScreen();
 }
@@ -520,6 +570,7 @@ function gradeWrong() {
   state.answeredIds.add(state.currentQuestion.id);
   state.badStreak += 1;
   state.goodStreak = 0;
+  saveProgress();
   showPunishment();
   showResultScreen();
 }
@@ -528,6 +579,20 @@ function skipQuestion() {
   if (state.mode !== "question") return;
   readSettings();
   setQuestion(randomQuestion(state.currentQuestion && state.currentQuestion.id));
+}
+
+function restartQuiz() {
+  stopTimer();
+  stopResultTimer();
+  state.answeredIds.clear();
+  state.badStreak = 0;
+  state.currentQuestion = null;
+  state.goodStreak = 0;
+  state.mode = "question";
+  state.result = null;
+  clearProgress();
+  renderHeader();
+  setQuestion(randomQuestion());
 }
 
 function updateResultCountdown(label, seconds) {
@@ -579,6 +644,7 @@ nodes.correctButton.addEventListener("click", gradeCorrect);
 nodes.wrongButton.addEventListener("click", gradeWrong);
 nodes.skipButton.addEventListener("click", skipQuestion);
 nodes.nextButton.addEventListener("click", nextQuestion);
+nodes.restartButton.addEventListener("click", restartQuiz);
 nodes.outcomePanel.addEventListener("click", runResultCountdown);
 nodes.outcomePanel.addEventListener("keydown", (event) => {
   if (event.key === "Enter" || event.key === " ") {
@@ -588,8 +654,9 @@ nodes.outcomePanel.addEventListener("keydown", (event) => {
 });
 
 readSettings();
+const savedQuestion = loadProgress();
 renderHeader();
-setQuestion(randomQuestion());
+setQuestion(savedQuestion && !state.answeredIds.has(savedQuestion.id) ? savedQuestion : randomQuestion());
 
 window.__quizStats = {
   easy: questions.filter((question) => question.difficulty === "easy").length,
