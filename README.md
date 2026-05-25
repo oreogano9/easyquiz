@@ -22,6 +22,6 @@ Open `http://127.0.0.1:3000`.
 - Wrong answers keep question progress, halve the current reward, and wait for Next question.
 - Review mode lets the presenter mark questions for removal, then copy a removal list.
 - Clicking the reward panel starts a 5-second lead-in countdown, then the reward countdown. A sound plays when it finishes.
-- Defaults are `10s` lowest reward, accelerated reward scaling, and `12s` reward step.
+- Defaults are `1s` lowest reward with accelerated reward scaling at `2.1x` per correct streak step.
 - Sounds for correct, wrong, and timer end are configurable in settings.
 - The timer can be enabled or disabled. When it ends, it plays the optional timer sound and makes no automatic scoring change.

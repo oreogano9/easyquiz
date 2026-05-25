@@ -131,9 +131,9 @@ const state = {
 const settings = {
   correctSound: "chime",
   questionSeconds: 5,
-  rewardBase: 10,
+  rewardBase: 1,
   rewardScaling: "accelerated",
-  rewardStep: 12,
+  rewardStep: 1,
   timerEnabled: true,
   timerSound: "alarm",
   timerSoundEnabled: true,
@@ -160,7 +160,6 @@ const nodes = {
   reviewPanel: document.getElementById("reviewPanel"),
   rewardBase: document.getElementById("rewardBase"),
   rewardScaling: document.getElementById("rewardScaling"),
-  rewardStep: document.getElementById("rewardStep"),
   restartButton: document.getElementById("restartButton"),
   settingsForm: document.getElementById("settingsForm"),
   skipButton: document.getElementById("skipButton"),
@@ -183,8 +182,7 @@ function getNumber(node, fallback, min, max) {
 }
 
 function readSettings() {
-  settings.rewardBase = getNumber(nodes.rewardBase, 10, 1, 600);
-  settings.rewardStep = getNumber(nodes.rewardStep, 12, 0, 300);
+  settings.rewardBase = getNumber(nodes.rewardBase, 1, 1, 600);
   settings.rewardScaling = nodes.rewardScaling.value;
   settings.correctSound = nodes.correctSound.value;
   settings.wrongSound = nodes.wrongSound.value;
@@ -262,11 +260,14 @@ function clearProgress() {
 function growth(streak, step, scaling) {
   const extra = Math.max(0, streak - 1);
   if (scaling === "flat") return 0;
-  if (scaling === "accelerated") return (extra * (extra + 1) * step) / 2;
+  if (scaling === "accelerated") return null;
   return extra * step;
 }
 
 function rewardFor(streak) {
+  if (settings.rewardScaling === "accelerated") {
+    return Math.max(1, Math.round(settings.rewardBase * 2.1 ** Math.max(0, streak - 1)));
+  }
   return Math.round(settings.rewardBase + growth(streak, settings.rewardStep, settings.rewardScaling));
 }
 
