@@ -24,6 +24,7 @@ Open `http://127.0.0.1:3000`.
 - The review page can copy keep or removal lists at any point; after the final question it shows only Finished and the copy buttons.
 - True/False statements are color-coded: green for true and red for false, with false explanations shown under the statement.
 - Clicking the reward panel starts a 5-second lead-in countdown, then the reward countdown. A sound plays when it finishes.
-- Defaults are `1s` lowest reward with accelerated reward scaling at `2.1x` per correct streak step.
+- Defaults are `1s` lowest reward with stepped reward scaling: `1, 2, 3, 5, 8, 13, 21, 34`.
+- Correct answers move one step up; wrong answers drop two steps, never below `1`.
 - Sounds for correct, wrong, and timer end are configurable in settings.
 - The timer can be enabled or disabled. When it ends, it plays the optional timer sound and makes no automatic scoring change.

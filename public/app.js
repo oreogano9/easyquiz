@@ -182,17 +182,17 @@ const questions = questionSeeds.map(([category, prompt, answer, difficulty, expl
   statementType: category === "True or False" ? answer.toLowerCase() : "",
 }));
 const questionById = new Map(questions.map((question) => [question.id, question]));
+const rewardSteps = [1, 2, 3, 5, 8, 13, 21, 34];
 const state = {
   answeredIds: new Set(),
   badStreak: 0,
   currentQuestion: null,
-  goodStreak: 0,
   keepIds: new Set(),
   mode: "question",
   removalIds: new Set(),
+  rewardIndex: 0,
   result: null,
   resultTimer: null,
-  rewardSeconds: 1,
   reviewIndex: 0,
   timer: null,
   timerEnded: false,
@@ -203,8 +203,6 @@ const settings = {
   correctSound: "chime",
   questionSeconds: 5,
   rewardBase: 1,
-  rewardScaling: "accelerated",
-  rewardStep: 1,
   timerEnabled: true,
   timerSound: "alarm",
   timerSoundEnabled: true,
@@ -241,7 +239,6 @@ const nodes = {
   reviewPosition: document.getElementById("reviewPosition"),
   reviewPrompt: document.getElementById("reviewPrompt"),
   rewardBase: document.getElementById("rewardBase"),
-  rewardScaling: document.getElementById("rewardScaling"),
   restartButton: document.getElementById("restartButton"),
   settings: document.querySelector(".settings"),
   settingsForm: document.getElementById("settingsForm"),
@@ -268,7 +265,6 @@ function getNumber(node, fallback, min, max) {
 
 function readSettings() {
   settings.rewardBase = getNumber(nodes.rewardBase, 1, 1, 600);
-  settings.rewardScaling = nodes.rewardScaling.value;
   settings.correctSound = nodes.correctSound.value;
   settings.wrongSound = nodes.wrongSound.value;
   settings.timerSound = nodes.timerSound.value;
@@ -285,8 +281,7 @@ function saveProgress() {
         answeredIds: [...state.answeredIds],
         badStreak: state.badStreak,
         currentQuestionId: state.currentQuestion ? state.currentQuestion.id : null,
-        goodStreak: state.goodStreak,
-        rewardSeconds: state.rewardSeconds,
+        rewardIndex: state.rewardIndex,
       }),
     );
   } catch {
@@ -303,12 +298,10 @@ function loadProgress() {
     const ids = Array.isArray(saved.answeredIds) ? saved.answeredIds : [];
     state.answeredIds = new Set(ids.filter((id) => questionById.has(id)));
 
-    const goodStreak = Number(saved.goodStreak);
     const badStreak = Number(saved.badStreak);
-    const rewardSeconds = Number(saved.rewardSeconds);
-    state.goodStreak = Number.isFinite(goodStreak) ? Math.max(0, Math.trunc(goodStreak)) : 0;
+    const rewardIndex = Number(saved.rewardIndex);
     state.badStreak = Number.isFinite(badStreak) ? Math.max(0, Math.trunc(badStreak)) : 0;
-    state.rewardSeconds = Number.isFinite(rewardSeconds) ? Math.max(1, Math.round(rewardSeconds)) : rewardFor(Math.max(1, state.goodStreak));
+    state.rewardIndex = Number.isFinite(rewardIndex) ? Math.min(rewardSteps.length - 1, Math.max(0, Math.trunc(rewardIndex))) : 0;
 
     return questionById.get(saved.currentQuestionId) || null;
   } catch {
@@ -356,22 +349,8 @@ function clearProgress() {
   }
 }
 
-function growth(streak, step, scaling) {
-  const extra = Math.max(0, streak - 1);
-  if (scaling === "flat") return 0;
-  if (scaling === "accelerated") return null;
-  return extra * step;
-}
-
-function rewardFor(streak) {
-  if (settings.rewardScaling === "accelerated") {
-    return Math.max(1, Math.round(settings.rewardBase * 2.1 ** Math.max(0, streak - 1)));
-  }
-  return Math.round(settings.rewardBase + growth(streak, settings.rewardStep, settings.rewardScaling));
-}
-
 function currentRewardSeconds() {
-  return Math.max(1, Math.round(state.rewardSeconds));
+  return Math.max(1, Math.round(settings.rewardBase * rewardSteps[state.rewardIndex]));
 }
 
 function ensureAudio() {
@@ -563,13 +542,11 @@ function gradeCorrect() {
   readSettings();
   playSound(settings.correctSound);
   state.answeredIds.add(state.currentQuestion.id);
-  if (state.goodStreak > 0) {
-    state.rewardSeconds = Math.max(1, Math.round(state.rewardSeconds * 2.1));
-  }
-  state.goodStreak += 1;
   state.badStreak = 0;
   saveProgress();
   showReward();
+  state.rewardIndex = Math.min(rewardSteps.length - 1, state.rewardIndex + 1);
+  saveProgress();
   showResultScreen();
 }
 
@@ -579,10 +556,9 @@ function gradeWrong() {
   playSound(settings.wrongSound);
   state.answeredIds.add(state.currentQuestion.id);
   state.badStreak += 1;
-  state.rewardSeconds = Math.max(1, Math.round(state.rewardSeconds / 2));
-  state.goodStreak = 0;
+  state.rewardIndex = Math.max(0, state.rewardIndex - 2);
   saveProgress();
-  showReward("Reward halved", "bad");
+  showReward("Reward dropped", "bad");
   showResultScreen();
 }
 
@@ -598,10 +574,9 @@ function restartQuiz() {
   state.answeredIds.clear();
   state.badStreak = 0;
   state.currentQuestion = null;
-  state.goodStreak = 0;
   state.mode = "question";
   state.result = null;
-  state.rewardSeconds = rewardFor(1);
+  state.rewardIndex = 0;
   clearProgress();
   renderHeader();
   setQuestion(randomQuestion());
@@ -728,7 +703,7 @@ function runResultCountdown() {
 nodes.settingsForm.addEventListener("input", () => {
   readSettings();
   if (state.mode === "result") {
-    showReward(state.badStreak > 0 ? "Reward halved" : "Current reward", state.badStreak > 0 ? "bad" : "good");
+    showReward(state.badStreak > 0 ? "Reward dropped" : "Current reward", state.badStreak > 0 ? "bad" : "good");
   }
   if (state.mode === "question") {
     setQuestionTimerIdle();
