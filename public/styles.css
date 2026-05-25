@@ -138,6 +138,38 @@ label span {
   text-wrap: balance;
 }
 
+#questionPrompt.statement,
+#reviewPrompt.statement {
+  min-height: auto;
+  padding: clamp(18px, 3vw, 34px);
+  border: 2px solid var(--line);
+  border-radius: 10px;
+}
+
+#questionPrompt.statement.true,
+#reviewPrompt.statement.true {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-soft);
+}
+
+#questionPrompt.statement.false,
+#reviewPrompt.statement.false {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red-soft);
+}
+
+.question-explanation {
+  padding: 14px 16px;
+  border: 1px solid var(--red);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(255, 69, 69, 0.08);
+  font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+  line-height: 1.4;
+}
+
 .outcome-panel {
   display: grid;
   place-items: center;

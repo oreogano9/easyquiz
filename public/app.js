@@ -68,16 +68,118 @@ const questionSeeds = [
   ["Science", "What are the primary colors of light?", "Red, green, and blue", "easy"],
   ["Science", "Which gas do plants absorb from the atmosphere?", "Carbon dioxide", "easy"],
   ["Science", "What is the most common gas in the Earth's atmosphere?", "Nitrogen", "medium"],
+  ["True or False","There are more possible chess games than atoms in the observable universe.","True","medium"],
+  ["True or False","The human body contains more microbial cells than human cells by a 100-to-1 ratio.","False","medium","Modern estimates are much closer, roughly around the same order of magnitude."],
+  ["True or False","Cleopatra lived closer in time to the first iPhone than to the building of the Great Pyramid of Giza.","True","medium"],
+  ["True or False","The Great Wall of China is one continuous unbroken wall.","False","medium","It is a network of walls, trenches, and fortifications."],
+  ["True or False","Oxford University is older than the Aztec Empire.","True","medium"],
+  ["True or False","The Moon is slowly moving closer to Earth each year.","False","medium","The Moon is slowly moving farther away."],
+  ["True or False","Bananas are botanical berries, but strawberries are not.","True","medium"],
+  ["True or False","The planet Mercury is the hottest planet in the solar system.","False","medium","Venus is hotter because of its thick atmosphere."],
+  ["True or False","Wombat poop is often cube-shaped.","True","medium"],
+  ["True or False","The black box on an airplane is usually black.","False","medium","It is usually bright orange."],
+  ["True or False","A cloud can weigh hundreds of thousands of kilograms.","True","medium"],
+  ["True or False","Humans can distinguish over a trillion smells with certainty.","False","medium","That number is debated and not certain."],
+  ["True or False","The Eiffel Tower was originally meant to be temporary.","True","medium"],
+  ["True or False","Lightning never strikes the same place twice.","False","medium","It can strike the same place many times."],
+  ["True or False","Some turtles can absorb oxygen through their cloaca.","True","medium"],
+  ["True or False","Bulls become angry because they hate the color red.","False","medium","They react mainly to movement."],
+  ["True or False","A teaspoon of neutron star matter would weigh billions of tons.","True","medium"],
+  ["True or False","The Sahara Desert is larger than Antarctica.","False","medium","Antarctica is larger."],
+  ["True or False","Humans have the same usual number of neck bones as giraffes.","True","medium"],
+  ["True or False","The North Pole sits on permanent land.","False","medium","It sits on shifting sea ice."],
+  ["True or False","The dot over a lowercase i is called a tittle.","True","medium"],
+  ["True or False","Saturn is the only planet with rings.","False","medium","Jupiter, Uranus, and Neptune also have rings."],
+  ["True or False","The unicorn is the national animal of Scotland.","True","medium"],
+  ["True or False","The Atlantic Ocean is generally getting smaller.","False","medium","It is generally widening."],
+  ["True or False","The metal gallium can melt in a person's hand.","True","medium"],
+  ["True or False","The Titanic had enough lifeboats for everyone aboard.","False","medium","It did not have enough lifeboat space for all passengers and crew."],
+  ["True or False","The shortest recorded war lasted less than an hour.","True","medium"],
+  ["True or False","Humans and non-bird dinosaurs lived together naturally.","False","medium","Non-bird dinosaurs died out about 66 million years before humans."],
+  ["True or False","A single strand of spaghetti is called a spaghetto.","True","medium"],
+  ["True or False","Glass is a very slow-flowing liquid.","False","medium","Glass is an amorphous solid."],
+  ["True or False","Some octopuses can change both color and skin texture.","True","medium"],
+  ["True or False","The human tongue has separate zones that each taste only one flavor.","False","medium","Most taste areas can detect multiple tastes."],
+  ["True or False","The largest living organism is often considered to be a fungus.","True","medium"],
+  ["True or False","A light-year measures time.","False","medium","It measures distance."],
+  ["True or False","The smell of freshly cut grass is partly a plant distress signal.","True","medium"],
+  ["True or False","Camels store water in their humps.","False","medium","Their humps store fat."],
+  ["True or False","Humans glow faintly, but too weakly for our eyes to see.","True","medium"],
+  ["True or False","Gold is naturally strongly magnetic.","False","medium","Pure gold is not naturally magnetic."],
+  ["True or False","The color magenta does not have its own single wavelength of light.","True","medium"],
+  ["True or False","The Great Pyramid of Giza is younger than the Roman Colosseum.","False","medium","The Great Pyramid is thousands of years older."],
+  ["True or False","There are more trees on Earth than stars in the Milky Way.","True","medium"],
+  ["True or False","Most of Earth's oxygen is produced by land forests.","False","medium","A large share comes from oceanic photosynthesis."],
+  ["True or False","The Sun contains more than 99% of the mass in the solar system.","True","medium"],
+  ["True or False","Earth's atmosphere is mostly oxygen.","False","medium","It is mostly nitrogen."],
+  ["True or False","The human genome contains DNA from ancient viruses.","True","medium"],
+  ["True or False","The Amazon River has no tributaries.","False","medium","It has many tributaries."],
+  ["True or False","Sharks existed before trees.","True","medium"],
+  ["True or False","The Moon is larger than Mercury.","False","medium","Mercury is larger."],
+  ["True or False","A day on Venus is longer than a year on Venus.","True","medium"],
+  ["True or False","A solar day on Mercury is shorter than its year.","False","medium","A solar day on Mercury is longer than its year."],
+  ["True or False","The speed of light in vacuum is about 300,000 km/s.","True","medium"],
+  ["True or False","The speed of sound is faster than the speed of light.","False","medium","Light is vastly faster."],
+  ["True or False","About 71% of Earth's surface is covered by water.","True","medium"],
+  ["True or False","About 71% of Earth's water is fresh water.","False","medium","Only a small percentage of Earth's water is fresh."],
+  ["True or False","Roughly 97% of Earth's water is salty ocean water.","True","medium"],
+  ["True or False","The human brain uses about 2% of body weight and about 50% of resting energy.","False","medium","It is about 2% of body weight and roughly 20% of resting energy."],
+  ["True or False","The observable universe contains roughly hundreds of billions to trillions of galaxies.","True","medium"],
+  ["True or False","The Milky Way contains only about one million stars.","False","medium","It contains hundreds of billions of stars."],
+  ["True or False","Human DNA is roughly 99.9% identical from person to person.","True","medium"],
+  ["True or False","Humans share about 99.9% of their DNA with chimpanzees.","False","medium","The common estimate is closer to about 98 to 99%, depending on how it is measured."],
+  ["True or False","About 90% of all known animal species are insects.","False","medium","Insects are a huge share of known animal species, but not usually stated as 90% of all known animals."],
+  ["True or False","More than half of the human body's bones are in the hands and feet.","True","medium"],
+  ["True or False","The average adult human body has exactly 300 bones.","False","medium","Adults usually have 206 bones."],
+  ["True or False","About 60% of the adult human body is water, though it varies.","True","medium"],
+  ["True or False","The Pacific Ocean covers less than 5% of Earth's surface.","False","medium","It covers about one-third of Earth's surface."],
+  ["True or False","The Pacific Ocean is larger than all land on Earth combined.","True","medium"],
+  ["True or False","The Sahara is the largest desert on Earth.","False","medium","Antarctica is the largest desert; the Sahara is the largest hot desert."],
+  ["True or False","The Antarctic ice sheet holds most of the world's fresh water.","True","medium"],
+  ["True or False","The human heart beats about 10,000 times per day in an average adult.","False","medium","It is closer to about 100,000 times per day."],
+  ["True or False","An adult human has about 5 liters of blood.","True","medium"],
+  ["True or False","The average human body has only about 500 bacteria total.","False","medium","It has trillions of microbes."],
+  ["True or False","There are roughly 86 billion neurons in the human brain.","True","medium"],
+  ["True or False","The brain contains more neurons than there are stars in the Milky Way.","False","medium","The Milky Way has hundreds of billions of stars, more than the brain has neurons."],
+  ["True or False","The odds of a fair coin landing heads 10 times in a row are 1 in 1,024.","True","medium"],
+  ["True or False","In a group of 23 people, the chance that two share a birthday is less than 1%.","False","medium","It is about 50%."],
+  ["True or False","In a standard deck, the chance of drawing an ace first is 1 in 13.","True","medium"],
+  ["True or False","In a standard deck, the chance of drawing a queen first is 1 in 4.","False","medium","It is 1 in 13."],
+  ["True or False","Rolling two fair dice gives a sum of 7 more often than any other sum.","True","medium"],
+  ["True or False","Rolling two fair dice gives a sum of 12 more often than a sum of 7.","False","medium","A 7 has 6 combinations; 12 has only 1."],
+  ["True or False","The chance of rolling double sixes with two fair dice is 1 in 36.","True","medium"],
+  ["True or False","The chance of rolling at least one six with two fair dice is 1 in 36.","False","medium","It is 11 in 36."],
+  ["True or False","In a normal year, February has exactly 28 days.","True","medium"],
+  ["True or False","Every fourth year is always a leap year.","False","medium","Century years must usually be divisible by 400 to be leap years."],
+  ["True or False","There are 86,400 seconds in a day.","True","medium"],
+  ["True or False","There are exactly 10,000 seconds in a day.","False","medium","There are 86,400 seconds."],
+  ["True or False","A googol is 1 followed by 100 zeros.","True","medium"],
+  ["True or False","A googolplex is 1 followed by 1,000 zeros.","False","medium","It is 1 followed by a googol zeros."],
+  ["True or False","One million seconds is about 11.6 days.","True","medium"],
+  ["True or False","One billion seconds is about 11.6 days.","False","medium","It is about 31.7 years."],
+  ["True or False","One trillion seconds is about 31,700 years.","True","medium"],
+  ["True or False","A billion is always 1,000 million in every language and historical system.","False","medium","Some older systems used billion to mean a million million."],
+  ["True or False","The probability of being dealt a royal flush in poker is extremely low, roughly 1 in 650,000 hands.","True","medium"],
+  ["True or False","In poker, a royal flush is easier to get than one pair.","False","medium","One pair is much more common."],
+  ["True or False","Pi is irrational.","True","medium"],
+  ["True or False","Pi ends after exactly one trillion digits.","False","medium","Pi has no known ending and is irrational."],
+  ["True or False","There are infinitely many prime numbers.","True","medium"],
+  ["True or False","The number 1 is a prime number.","False","medium","Prime numbers must have exactly two positive divisors."],
+  ["True or False","Zero is an even number.","True","medium"],
+  ["True or False","Negative numbers cannot be squared.","False","medium","They can be squared; for example, -3 squared is 9."],
+  ["True or False","There are 10 possible outcomes when flipping 10 coins.","False","medium","There are 2^10, which is 1,024 possible outcome sequences."],
 ];
 
-const STORAGE_KEY = "quiz-combo-desk-progress-v4";
-const REVIEW_KEY = "quiz-combo-desk-review-v3";
-const questions = questionSeeds.map(([category, prompt, answer, difficulty], index) => ({
+const STORAGE_KEY = "quiz-combo-desk-progress-v5";
+const REVIEW_KEY = "quiz-combo-desk-review-v5";
+const questions = questionSeeds.map(([category, prompt, answer, difficulty, explanation], index) => ({
   answer,
   category,
   difficulty,
+  explanation: explanation || "",
   id: `q-${index + 1}`,
   prompt,
+  statementType: category === "True or False" ? answer.toLowerCase() : "",
 }));
 const questionById = new Map(questions.map((question) => [question.id, question]));
 const state = {
@@ -123,6 +225,7 @@ const nodes = {
   outcomeValue: document.getElementById("outcomeValue"),
   position: document.getElementById("questionPosition"),
   progress: document.getElementById("progressCount"),
+  questionExplanation: document.getElementById("questionExplanation"),
   prompt: document.getElementById("questionPrompt"),
   questionSeconds: document.getElementById("questionSeconds"),
   removeQuestionButton: document.getElementById("removeQuestionButton"),
@@ -132,6 +235,7 @@ const nodes = {
   reviewCopyLabel: document.getElementById("reviewCopyLabel"),
   reviewCopyOutput: document.getElementById("reviewCopyOutput"),
   reviewCopyPanel: document.getElementById("reviewCopyPanel"),
+  reviewExplanation: document.getElementById("reviewExplanation"),
   reviewFinished: document.getElementById("reviewFinished"),
   reviewPage: document.getElementById("reviewPage"),
   reviewPosition: document.getElementById("reviewPosition"),
@@ -384,12 +488,27 @@ function randomQuestion(excludeId = null) {
   return filtered[Math.floor(Math.random() * filtered.length)];
 }
 
+function renderQuestionText(promptNode, explanationNode, question) {
+  promptNode.textContent = question.prompt;
+  promptNode.classList.remove("statement", "true", "false");
+  explanationNode.classList.add("hidden");
+  explanationNode.textContent = "";
+
+  if (!question.statementType) return;
+
+  promptNode.classList.add("statement", question.statementType);
+  if (question.statementType === "false" && question.explanation) {
+    explanationNode.textContent = question.explanation;
+    explanationNode.classList.remove("hidden");
+  }
+}
+
 function setQuestion(question) {
   stopResultTimer();
   state.currentQuestion = question;
   state.mode = "question";
   state.result = null;
-  nodes.prompt.textContent = question.prompt;
+  renderQuestionText(nodes.prompt, nodes.questionExplanation, question);
   nodes.answer.textContent = question.answer;
   nodes.difficulty.textContent = question.category;
   nodes.position.textContent = `${question.difficulty === "easy" ? "Easy" : "Medium"} · Question ${state.answeredIds.size + 1}`;
@@ -509,6 +628,7 @@ function renderReviewQuestion() {
   nodes.removeQuestionButton.classList.toggle("hidden", finished);
   nodes.exitReviewButton.classList.toggle("hidden", finished);
   nodes.reviewPrompt.classList.toggle("hidden", finished);
+  nodes.reviewExplanation.classList.add("hidden");
   nodes.reviewAnswer.closest(".answer-panel").classList.toggle("hidden", finished);
   nodes.reviewCategory.classList.toggle("hidden", finished);
   nodes.reviewPosition.textContent = finished ? "Finished" : `Review ${state.reviewIndex + 1} / ${questions.length}`;
@@ -517,13 +637,15 @@ function renderReviewQuestion() {
     nodes.reviewCopyPanel.classList.add("hidden");
     nodes.reviewCategory.textContent = "";
     nodes.reviewPrompt.textContent = "";
+    nodes.reviewPrompt.classList.remove("statement", "true", "false");
+    nodes.reviewExplanation.textContent = "";
     nodes.reviewAnswer.textContent = "";
     return;
   }
 
   const question = questions[state.reviewIndex];
   nodes.reviewCategory.textContent = question.category;
-  nodes.reviewPrompt.textContent = question.prompt;
+  renderQuestionText(nodes.reviewPrompt, nodes.reviewExplanation, question);
   nodes.reviewAnswer.textContent = question.answer;
   nodes.reviewCopyPanel.classList.add("hidden");
 }
