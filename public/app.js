@@ -563,9 +563,11 @@ function gradeCorrect() {
   readSettings();
   playSound(settings.correctSound);
   state.answeredIds.add(state.currentQuestion.id);
+  if (state.goodStreak > 0) {
+    state.rewardSeconds = Math.max(1, Math.round(state.rewardSeconds * 2.1));
+  }
   state.goodStreak += 1;
   state.badStreak = 0;
-  state.rewardSeconds = state.goodStreak === 1 ? rewardFor(1) : Math.max(1, Math.round(state.rewardSeconds * 2.1));
   saveProgress();
   showReward();
   showResultScreen();
@@ -578,6 +580,7 @@ function gradeWrong() {
   state.answeredIds.add(state.currentQuestion.id);
   state.badStreak += 1;
   state.rewardSeconds = Math.max(1, Math.round(state.rewardSeconds / 2));
+  state.goodStreak = 0;
   saveProgress();
   showReward("Reward halved", "bad");
   showResultScreen();
