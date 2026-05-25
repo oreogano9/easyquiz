@@ -1,223 +1,116 @@
-const easySeeds = [
-  ["Science", "Which planet has the Great Red Spot storm?", "Jupiter"],
-  ["Science", "What gas do plants take in for photosynthesis?", "Carbon dioxide"],
-  ["Science", "What part of the body pumps blood around it?", "The heart"],
-  ["Science", "What force keeps the Moon orbiting Earth?", "Gravity"],
-  ["Science", "Which metal is liquid at room temperature?", "Mercury"],
-  ["Science", "What is the nearest star to Earth after the Sun?", "Proxima Centauri"],
-  ["Science", "What do bees collect from flowers to make honey?", "Nectar"],
-  ["Science", "Which organ filters blood and makes urine?", "The kidney"],
-  ["Science", "What is the chemical symbol for oxygen?", "O"],
-  ["Science", "What simple machine uses a wheel and a rope?", "A pulley"],
-  ["History", "Who was the first president of the United States?", "George Washington"],
-  ["History", "Which ancient civilization built the Giza pyramids?", "Ancient Egypt"],
-  ["History", "What wall divided a European capital during the Cold War?", "The Berlin Wall"],
-  ["History", "Which empire used Latin and ruled from Rome?", "The Roman Empire"],
-  ["History", "Who painted the Mona Lisa and sketched flying machines?", "Leonardo da Vinci"],
-  ["History", "What ship carried the Pilgrims to America in 1620?", "The Mayflower"],
-  ["History", "Which country gave the Statue of Liberty to the U.S.?", "France"],
-  ["History", "Which queen ruled Egypt and met Caesar and Antony?", "Cleopatra"],
-  ["History", "Which war ended in Europe in 1945?", "World War II"],
-  ["History", "Which U.S. president issued the Emancipation Proclamation?", "Abraham Lincoln"],
-  ["Geography", "Which ocean lies between California and Japan?", "The Pacific Ocean"],
-  ["Geography", "Which Italian city is famous for canals and gondolas?", "Venice"],
-  ["Geography", "Which river runs through Cairo and Luxor?", "The Nile"],
-  ["Geography", "Which city contains the Louvre and the Eiffel Tower?", "Paris"],
-  ["Geography", "Which country contains most of the Amazon rainforest?", "Brazil"],
-  ["Geography", "What is the tallest mountain above sea level?", "Mount Everest"],
-  ["Geography", "Which capital city includes the Shibuya crossing?", "Tokyo"],
-  ["Geography", "Which country includes Madrid and Seville?", "Spain"],
-  ["Geography", "Which ocean lies between Ireland and Newfoundland?", "The Atlantic Ocean"],
-  ["Geography", "Siberia is mostly in which country?", "Russia"],
-  ["Literature", "Who wrote both Hamlet and Romeo and Juliet?", "William Shakespeare"],
-  ["Literature", "What school do Harry Potter and Hermione attend?", "Hogwarts"],
-  ["Literature", "Which bear is friends with Piglet and loves honey?", "Winnie-the-Pooh"],
-  ["Literature", "Who created the Grinch and the Cat in the Hat?", "Dr. Seuss"],
-  ["Literature", "Which fairy-tale character leaves a glass slipper?", "Cinderella"],
-  ["Literature", "What rabbit is chased in Mr. McGregor's garden?", "Peter Rabbit"],
-  ["Literature", "Who wrote Charlie and the Chocolate Factory?", "Roald Dahl"],
-  ["Literature", "Which detective lives at 221B Baker Street?", "Sherlock Holmes"],
-  ["Literature", "Which hobbit is hired as a burglar in The Hobbit?", "Bilbo Baggins"],
-  ["Literature", "Which wolf disguises himself as Little Red Riding Hood's grandmother?", "The Big Bad Wolf"],
-  ["Film & TV", "Which Disney film follows Simba leaving Pride Rock?", "The Lion King"],
-  ["Film & TV", "In which film does Neo discover a simulated world?", "The Matrix"],
-  ["Film & TV", "Which animated family lives at 742 Evergreen Terrace?", "The Simpsons"],
-  ["Film & TV", "What snowman is brought to life in Frozen?", "Olaf"],
-  ["Film & TV", "Which Pixar film features Woody and Buzz Lightyear?", "Toy Story"],
-  ["Film & TV", "Which superhero works for the Daily Bugle?", "Spider-Man"],
-  ["Film & TV", "Which hero is summoned by the Bat-Signal?", "Batman"],
-  ["Film & TV", "Which saga features Jedi, Sith, and lightsabers?", "Star Wars"],
-  ["Film & TV", "Which green ogre lives in a swamp with Donkey?", "Shrek"],
-  ["Film & TV", "Which wizard guides Frodo in The Lord of the Rings?", "Gandalf"],
-  ["Music", "Which instrument has keys, hammers, and strings?", "A piano"],
-  ["Music", "Which band released the album Abbey Road?", "The Beatles"],
-  ["Music", "Who was known for the moonwalk and a white glove?", "Michael Jackson"],
-  ["Music", "Which string instrument is held under the chin?", "A violin"],
-  ["Music", "What word describes the speed of a piece of music?", "Tempo"],
-  ["Music", "Which singer released the song Hello in 2015?", "Adele"],
-  ["Music", "Which voice type is lower than baritone?", "Bass"],
-  ["Music", "What group sings soprano, alto, tenor, and bass parts?", "A choir"],
-  ["Music", "Which instrument family includes trumpets and trombones?", "Brass"],
-  ["Music", "Which rock instrument usually has six strings?", "A guitar"],
-  ["Sports", "How many players start for one soccer team?", "Eleven"],
-  ["Sports", "Which sport uses a shuttlecock instead of a ball?", "Badminton"],
-  ["Sports", "What basketball shot is taken from the foul line?", "A free throw"],
-  ["Sports", "Which sport has innings, bases, and a pitcher's mound?", "Baseball"],
-  ["Sports", "Which tennis tournament is played on grass in London?", "Wimbledon"],
-  ["Sports", "How many rings are on the Olympic flag?", "Five"],
-  ["Sports", "Which sport uses a puck and a penalty box?", "Ice hockey"],
-  ["Sports", "What is a six-point score in American football called?", "A touchdown"],
-  ["Sports", "In golf, what is one stroke under par called?", "A birdie"],
-  ["Sports", "Which soccer player can usually use hands in the box?", "The goalkeeper"],
-  ["Technology", "What does CPU stand for in a computer?", "Central processing unit"],
-  ["Technology", "Which language mainly styles web pages?", "CSS"],
-  ["Technology", "What does GPS help a phone or car find?", "Location"],
-  ["Technology", "What device connects a home network to Wi-Fi?", "A router"],
-  ["Technology", "What is unwanted junk email commonly called?", "Spam"],
-  ["Technology", "What secret phrase protects a user account?", "A password"],
-  ["Technology", "What symbol starts many social-media tags?", "A hashtag"],
-  ["Technology", "What does USB commonly connect to a computer?", "Devices"],
-  ["Technology", "Which company makes the iPhone and Mac?", "Apple"],
-  ["Technology", "What does URL mean in everyday web use?", "A web address"],
-  ["Food", "Which Japanese dish uses vinegared rice and seafood?", "Sushi"],
-  ["Food", "What are dried grapes called?", "Raisins"],
-  ["Food", "Which Middle Eastern dip is made from chickpeas?", "Hummus"],
-  ["Food", "What Italian frozen dessert is denser than ice cream?", "Gelato"],
-  ["Food", "Which cheese is most associated with stretchy pizza?", "Mozzarella"],
-  ["Food", "What strong coffee is forced through fine grounds?", "Espresso"],
-  ["Food", "Which grain is used to make most bread flour?", "Wheat"],
-  ["Food", "Which fruit is used in cider and many pies?", "Apple"],
-  ["Food", "What paste made from sesame seeds goes into hummus?", "Tahini"],
-  ["Food", "Which herb is the main green flavor in pesto?", "Basil"],
-  ["Nature", "What plant do pandas eat for most of their diet?", "Bamboo"],
-  ["Nature", "What animal does a tadpole grow into?", "A frog"],
-  ["Nature", "What is a group of wolves called?", "A pack"],
-  ["Nature", "Which tree grows acorns?", "An oak tree"],
-  ["Nature", "What insect does a caterpillar usually become?", "A butterfly"],
-  ["Nature", "Which large mammal has tusks and a trunk?", "An elephant"],
-  ["Nature", "Which striped animal is related to a horse?", "A zebra"],
-  ["Nature", "What gas do animals need to breathe?", "Oxygen"],
-  ["Nature", "What natural event is measured by a seismograph?", "An earthquake"],
-  ["Nature", "What ocean animal has eight arms and can release ink?", "An octopus"],
+const questionSeeds = [
+  ["Arts & Entertainment", "What is the name of the wizarding school Harry Potter attends?", "Hogwarts School of Witchcraft and Wizardry", "easy"],
+  ["Arts & Entertainment", "Which artist painted the Mona Lisa?", "Leonardo da Vinci", "easy"],
+  ["Arts & Entertainment", "What 2019 movie is the 2nd highest-grossing film?", "Avengers: Endgame", "easy"],
+  ["Arts & Entertainment", "Who painted the famous artwork Starry Night?", "Vincent van Gogh", "easy"],
+  ["Arts & Entertainment", "What is the main sport featured in the movie Space Jam?", "Basketball", "easy"],
+  ["Arts & Entertainment", "What is the name of the boy who never grew up in J.M. Barrie's book?", "Peter Pan", "easy"],
+  ["Arts & Entertainment", "What is the highest-grossing film of all time?", "Avatar", "easy"],
+  ["Arts & Entertainment", "Who wrote the famous play Romeo and Juliet?", "William Shakespeare", "easy"],
+  ["Arts & Entertainment", "What is the name of Harry Potter's owl?", "Hedwig", "easy"],
+  ["Arts & Entertainment", "What is the protagonist's name in The Hunger Games series?", "Katniss Everdeen", "easy"],
+  ["Random Facts", "How many U.S. states have a coastline?", "23", "medium"],
+  ["Random Facts", "What is the smallest country in the world?", "Vatican City", "easy"],
+  ["Random Facts", "Which animal can sleep for up to three years?", "The snail", "medium"],
+  ["Random Facts", "What is the only mammal capable of flight?", "The bat", "easy"],
+  ["Random Facts", "What is the only letter that does not appear in any U.S. state name?", "Q", "medium"],
+  ["Random Facts", "What is the world's longest river?", "The Nile", "easy"],
+  ["Random Facts", "Which is the tallest mountain in the world?", "Mount Everest", "easy"],
+  ["Random Facts", "Which animal can live the longest without water?", "The camel", "medium"],
+  ["Random Facts", "What is the only planet in the solar system that rotates clockwise?", "Venus", "medium"],
+  ["Random Facts", "What is the largest desert in the world?", "Antarctica", "medium"],
+  ["Random Facts", "What is the largest ocean in the world?", "Pacific Ocean", "easy"],
+  ["Science", "Which element has the atomic number 1?", "Hydrogen", "easy"],
+  ["Science", "What is the process called when a caterpillar turns into a butterfly?", "Metamorphosis", "easy"],
+  ["Science", "What is the atomic symbol for gold?", "Au", "medium"],
+  ["Science", "What is the process called when a liquid turns into a gas?", "Evaporation", "easy"],
+  ["Science", "What is the center of an atom called?", "Nucleus", "easy"],
+  ["Science", "What pigment gives plants their green color and helps photosynthesis?", "Chlorophyll", "medium"],
+  ["Science", "What is the closest planet to the Sun?", "Mercury", "easy"],
+  ["Science", "What process lets plants use sunlight, water, and carbon dioxide to make glucose and oxygen?", "Photosynthesis", "easy"],
+  ["Science", "What is the Earth's outermost layer called?", "The crust", "easy"],
+  ["Science", "Which bone protects the brain?", "The skull", "easy"],
+  ["Disney", "What kind of creature is Sebastian in The Little Mermaid?", "Crab", "easy"],
+  ["Disney", "Which Disney princess has a pet tiger?", "Jasmine", "easy"],
+  ["Disney", "Who composed the music for the movie The Lion King?", "Elton John", "medium"],
+  ["Disney", "What is the name of Mickey Mouse's dog?", "Pluto", "easy"],
+  ["Disney", "Which Disney character leaves a glass slipper at a royal ball?", "Cinderella", "easy"],
+  ["Disney", "What kind of animal is Thumper in Bambi?", "Rabbit", "easy"],
+  ["Disney", "Who is the main character in The Jungle Book?", "Mowgli", "easy"],
+  ["Disney", "Which Disney movie features a genie named Genie?", "Aladdin", "easy"],
+  ["Disney", "What is the name of the toy cowboy in Toy Story?", "Woody", "easy"],
+  ["Disney", "What is the name of the shark in Finding Nemo?", "Bruce", "easy"],
+  ["Human Body", "How many bones do adult humans have?", "206", "easy"],
+  ["Human Body", "How many chambers does the human heart have?", "4", "easy"],
+  ["Human Body", "What is the powerhouse of the cell?", "Mitochondria", "easy"],
+  ["Human Body", "How many teeth do most adult humans have?", "32", "easy"],
+  ["Human Body", "What is the colored part of the eye called?", "The iris", "easy"],
+  ["Human Body", "What is the largest organ in the human body?", "The skin", "easy"],
+  ["Human Body", "Which body system takes in oxygen and removes carbon dioxide?", "The respiratory system", "medium"],
+  ["Human Body", "What is the heaviest internal organ in the human body by weight?", "The liver", "medium"],
+  ["Human Body", "What tiny structures carry genetic information in cells?", "DNA", "medium"],
+  ["Human Body", "What is the rarest common blood type among humans?", "AB-negative", "medium"],
+  ["Space", "What is the largest planet in our solar system?", "Jupiter", "easy"],
+  ["Space", "What is the smallest planet in the solar system?", "Mercury", "easy"],
+  ["Space", "Which planet is known as the Red Planet?", "Mars", "easy"],
+  ["Space", "Which planet is known as the hottest planet?", "Venus", "easy"],
+  ["Space", "Which galaxy is Earth part of?", "Milky Way", "easy"],
+  ["Space", "What is the moon phase called when the moon is not visible from Earth?", "New moon", "easy"],
+  ["Space", "What is it called when Earth passes between the Sun and the Moon?", "Lunar eclipse", "medium"],
+  ["Space", "How many planets are there in our solar system?", "Eight", "easy"],
+  ["Space", "About how long does it take the Moon to orbit Earth?", "28 days", "easy"],
+  ["Space", "Which planet is most famous for rings surrounding it?", "Saturn", "easy"],
+  ["Animals", "Which animal holds the world record for the longest lifespan?", "Bowhead whale", "medium"],
+  ["Animals", "What is the process called when a caterpillar transforms into a butterfly?", "Metamorphosis", "easy"],
+  ["Animals", "True or false: all living things need water to survive.", "True", "easy"],
+  ["Animals", "Which type of animal lays eggs: mammals or reptiles?", "Reptiles", "easy"],
+  ["Animals", "What is the world's largest mammal?", "Blue whale", "easy"],
+  ["Animals", "Which bird's eye is bigger than its brain?", "Ostrich", "medium"],
+  ["Animals", "What is the largest land animal?", "African elephant", "easy"],
+  ["Animals", "Which sea creature has three hearts?", "Octopus", "easy"],
+  ["Animals", "True or false: the human brain weighs more than the human heart.", "True", "medium"],
+  ["Animals", "Which animal can lift up to 50 times its body weight?", "Ant", "easy"],
+  ["Geography", "What is the largest ocean on Earth?", "Pacific Ocean", "easy"],
+  ["Geography", "Where is the Eiffel Tower located?", "Paris, France", "easy"],
+  ["Geography", "Which is the longest river in the world?", "The Nile", "easy"],
+  ["Geography", "What is the largest country by land area?", "Russia", "easy"],
+  ["Geography", "What is the smallest ocean on Earth?", "Arctic Ocean", "medium"],
+  ["Geography", "Which continent is the Sahara Desert located on?", "Africa", "easy"],
+  ["Geography", "Which river is the longest in the United States?", "Missouri River", "medium"],
+  ["Geography", "What is the tallest mountain in the world?", "Mount Everest", "easy"],
+  ["Geography", "What is the largest continent?", "Asia", "easy"],
+  ["Geography", "Which countries make up the United Kingdom?", "England, Scotland, Wales, and Northern Ireland", "medium"],
+  ["Technology & Innovations", "What is the world's largest social media platform?", "Facebook", "easy"],
+  ["Technology & Innovations", "Who invented the light bulb?", "Thomas Edison", "easy"],
+  ["Technology & Innovations", "What does the acronym URL stand for?", "Uniform Resource Locator", "medium"],
+  ["Technology & Innovations", "Who is credited with inventing the telephone?", "Alexander Graham Bell", "easy"],
+  ["Technology & Innovations", "What does the www in a website URL stand for?", "World Wide Web", "easy"],
+  ["Technology & Innovations", "What is the smallest unit of digital information?", "Bit", "easy"],
+  ["Technology & Innovations", "What does the acronym PDF stand for?", "Portable Document Format", "medium"],
+  ["Technology & Innovations", "What year did the first iPhone come out?", "2007", "medium"],
+  ["Technology & Innovations", "What do the initials GPS stand for?", "Global Positioning System", "easy"],
+  ["Technology & Innovations", "What does the acronym STEM stand for?", "Science, Technology, Engineering, and Mathematics", "easy"],
+  ["Food", "What country is sushi from?", "Japan", "easy"],
+  ["Food", "What is the national dish of Spain?", "Paella", "medium"],
+  ["Food", "Where did the Caesar salad originate?", "Tijuana, Mexico", "medium"],
+  ["Food", "What is the most expensive spice?", "Saffron", "easy"],
+  ["Food", "What is the main ingredient in guacamole?", "Avocado", "easy"],
+  ["Food", "What is the primary ingredient in a traditional Margherita pizza?", "Tomato", "easy"],
+  ["Food", "What is the key ingredient in traditional hummus?", "Chickpeas", "easy"],
+  ["Food", "What country is the origin of the sandwich?", "England", "medium"],
+  ["Food", "What does the French phrase Bon Appetit mean?", "Enjoy your meal", "easy"],
+  ["Food", "Which fruit gives the most potassium per serving?", "Bananas", "medium"],
 ];
 
-const mediumSeeds = [
-  ["Science", "Which element has the symbol Na and appears in table salt?", "Sodium"],
-  ["Science", "What scale measures how acidic or alkaline a substance is?", "The pH scale"],
-  ["Science", "Which blood cells include lymphocytes and fight infection?", "White blood cells"],
-  ["Science", "Which cell structures release energy during respiration?", "Mitochondria"],
-  ["Science", "What process changes liquid water into vapor at the surface?", "Evaporation"],
-  ["Science", "Which ringed planet has the moon Titan?", "Saturn"],
-  ["Science", "What type of energy is stored in food bonds?", "Chemical energy"],
-  ["Science", "Which mineral is rated 10 on the Mohs hardness scale?", "Diamond"],
-  ["Science", "Which cell part contains chromosomes in plant and animal cells?", "The nucleus"],
-  ["Science", "What is the main gas in Earth's atmosphere?", "Nitrogen"],
-  ["History", "In what year did World War II end in Europe?", "1945"],
-  ["History", "Mansa Musa ruled which wealthy West African empire?", "The Mali Empire"],
-  ["History", "Which revolution began with the storming of the Bastille?", "The French Revolution"],
-  ["History", "What was Byzantium later renamed before becoming Istanbul?", "Constantinople"],
-  ["History", "Which treaty was signed in the Hall of Mirrors in 1919?", "The Treaty of Versailles"],
-  ["History", "Who became Rome's first emperor after defeating Antony?", "Augustus"],
-  ["History", "What trade route linked China with Europe for centuries?", "The Silk Road"],
-  ["History", "Which Tudor queen ruled when the Spanish Armada failed?", "Elizabeth I"],
-  ["History", "Which navigator sailed for Spain across the Atlantic in 1492?", "Christopher Columbus"],
-  ["History", "What name is given to the 1929 U.S. stock market crash day?", "Black Tuesday"],
-  ["Geography", "Which capital city sits near the Cook Strait in New Zealand?", "Wellington"],
-  ["Geography", "Mount Kilimanjaro is found in which African country?", "Tanzania"],
-  ["Geography", "Which strait links the Atlantic Ocean and Mediterranean Sea?", "The Strait of Gibraltar"],
-  ["Geography", "Which river runs through Vienna, Budapest, and Belgrade?", "The Danube"],
-  ["Geography", "Palermo is the capital of which Mediterranean island?", "Sicily"],
-  ["Geography", "Which Canadian capital lies beside Gatineau?", "Ottawa"],
-  ["Geography", "Which desert stretches from Mauritania toward Egypt?", "The Sahara"],
-  ["Geography", "Which mountain range is often Europe's eastern boundary?", "The Ural Mountains"],
-  ["Geography", "Which capital city stands on South Korea's Han River?", "Seoul"],
-  ["Geography", "Casablanca is the largest city in which country?", "Morocco"],
-  ["Literature", "Who created Elizabeth Bennet and Mr. Darcy?", "Jane Austen"],
-  ["Literature", "What dragon guards treasure in The Hobbit?", "Smaug"],
-  ["Literature", "Which novel is about Captain Ahab hunting a white whale?", "Moby-Dick"],
-  ["Literature", "Who created the detective Hercule Poirot?", "Agatha Christie"],
-  ["Literature", "Which Greek epic follows Odysseus trying to get home?", "The Odyssey"],
-  ["Literature", "Who wrote Frankenstein after a stay near Lake Geneva?", "Mary Shelley"],
-  ["Literature", "Which dystopian novel features Room 101?", "1984"],
-  ["Literature", "Which novel is set partly in West Egg on Long Island?", "The Great Gatsby"],
-  ["Literature", "What is the surname of Jo, Meg, Beth, and Amy?", "March"],
-  ["Literature", "Which author created the town of Macondo?", "Gabriel Garcia Marquez"],
-  ["Film & TV", "Who directed Jaws, Jurassic Park, and E.T.?", "Steven Spielberg"],
-  ["Film & TV", "What is the coffee shop called in Friends?", "Central Perk"],
-  ["Film & TV", "Which actor plays Jack Sparrow in Pirates of the Caribbean?", "Johnny Depp"],
-  ["Film & TV", "What ship does Han Solo captain in Star Wars?", "The Millennium Falcon"],
-  ["Film & TV", "Who directed the animated film Spirited Away?", "Hayao Miyazaki"],
-  ["Film & TV", "What newspaper employs Clark Kent in Superman stories?", "The Daily Planet"],
-  ["Film & TV", "Which classic film features Rick's Cafe Americain?", "Casablanca"],
-  ["Film & TV", "Which actor plays Forrest Gump and Woody's voice?", "Tom Hanks"],
-  ["Film & TV", "Which series begins with a boy vanishing in Hawkins?", "Stranger Things"],
-  ["Film & TV", "What fictional African kingdom is rich in vibranium?", "Wakanda"],
-  ["Music", "Who composed the Fifth Symphony and Moonlight Sonata?", "Ludwig van Beethoven"],
-  ["Music", "Which reggae singer released Exodus and Legend?", "Bob Marley"],
-  ["Music", "Who was Queen's lead singer at Live Aid in 1985?", "Freddie Mercury"],
-  ["Music", "What musical symbol raises a note by one semitone?", "A sharp"],
-  ["Music", "Which singer released Vogue and Like a Prayer?", "Madonna"],
-  ["Music", "What Italian term means gradually getting louder?", "Crescendo"],
-  ["Music", "Which band made The Dark Side of the Moon?", "Pink Floyd"],
-  ["Music", "Who composed The Magic Flute and Don Giovanni?", "Wolfgang Amadeus Mozart"],
-  ["Music", "Which instrument sits between violin and cello in pitch?", "A viola"],
-  ["Music", "Which rapper released The College Dropout in 2004?", "Kanye West"],
-  ["Sports", "Which country did Pele represent in international soccer?", "Brazil"],
-  ["Sports", "What name did boxer Cassius Clay later take?", "Muhammad Ali"],
-  ["Sports", "Which cycling race traditionally finishes in Paris?", "The Tour de France"],
-  ["Sports", "Which team did Michael Jordan lead in the 1990s?", "The Chicago Bulls"],
-  ["Sports", "What is it called when a batter circles all bases on one hit?", "A home run"],
-  ["Sports", "Which winter sport combines skiing and rifle shooting?", "Biathlon"],
-  ["Sports", "Which Swiss tennis player is known for a one-handed backhand?", "Roger Federer"],
-  ["Sports", "Which sport features scrums, lineouts, and tries?", "Rugby"],
-  ["Sports", "What race combines swimming, cycling, and running?", "Triathlon"],
-  ["Sports", "Which golf tournament awards a green jacket?", "The Masters"],
-  ["Technology", "Which language provides the structure of most web pages?", "HTML"],
-  ["Technology", "Which language is used to query relational databases?", "SQL"],
-  ["Technology", "What backup method stores copies away from the device?", "Cloud backup"],
-  ["Technology", "Which open-source kernel is used by Android?", "Linux"],
-  ["Technology", "What does HTTPS add to ordinary HTTP?", "Encryption"],
-  ["Technology", "What umbrella term includes viruses and ransomware?", "Malware"],
-  ["Technology", "What computer memory is usually cleared when power is off?", "RAM"],
-  ["Technology", "What ledger technology groups transactions into blocks?", "Blockchain"],
-  ["Technology", "What does two-factor authentication ask for besides a password?", "A second proof"],
-  ["Technology", "Which file format is often used for compressed archives?", "ZIP"],
-  ["Food", "Which yellow spice gives many curries their color?", "Turmeric"],
-  ["Food", "Which short-grain rice is commonly used for creamy risotto?", "Arborio rice"],
-  ["Food", "Which folded Mexican food is usually made with a tortilla?", "A taco"],
-  ["Food", "What spicy Korean side dish is often made from cabbage?", "Kimchi"],
-  ["Food", "Tofu is made from which type of bean?", "Soybean"],
-  ["Food", "Which crescent pastry is made with laminated dough?", "Croissant"],
-  ["Food", "What are fried chickpea balls in Middle Eastern cooking called?", "Falafel"],
-  ["Food", "Which cheese is used in Greek salad and comes in brine?", "Feta"],
-  ["Food", "Which Italian dessert layers coffee-soaked biscuits and mascarpone?", "Tiramisu"],
-  ["Food", "Which sauce is traditionally made from egg yolk, oil, and acid?", "Mayonnaise"],
-  ["Nature", "Which cold biome has permafrost and few trees?", "Tundra"],
-  ["Nature", "Frogs, toads, and newts belong to which animal group?", "Amphibians"],
-  ["Nature", "Which evergreen group includes pines, spruces, and firs?", "Conifers"],
-  ["Nature", "Which bird is famous for pole-to-pole migration?", "The Arctic tern"],
-  ["Nature", "What ecosystem is built by tiny coral animals?", "A coral reef"],
-  ["Nature", "Which big cat has rosette-shaped spots?", "A leopard"],
-  ["Nature", "Which insect communicates food location with a waggle dance?", "A honeybee"],
-  ["Nature", "What process do plants use to make sugar from sunlight?", "Photosynthesis"],
-  ["Nature", "Which natural disaster begins undersea and can create giant waves?", "A tsunami"],
-  ["Nature", "What is the hard outer skeleton of an insect called?", "An exoskeleton"],
-];
-function buildQuestions(seeds, count, difficulty) {
-  return Array.from({ length: count }, (_, index) => {
-    const [category, prompt, answer] = seeds[index % seeds.length];
-    return {
-      answer,
-      category,
-      difficulty,
-      id: `${difficulty}-${index + 1}`,
-      prompt,
-    };
-  });
-}
-
-const STORAGE_KEY = "quiz-combo-desk-progress-v2";
-const questions = [...buildQuestions(easySeeds, 300, "easy"), ...buildQuestions(mediumSeeds, 200, "medium")];
+const STORAGE_KEY = "quiz-combo-desk-progress-v3";
+const REVIEW_KEY = "quiz-combo-desk-review-v1";
+const questions = questionSeeds.map(([category, prompt, answer, difficulty], index) => ({
+  answer,
+  category,
+  difficulty,
+  id: `q-${index + 1}`,
+  prompt,
+}));
 const questionById = new Map(questions.map((question) => [question.id, question]));
 const state = {
   answeredIds: new Set(),
@@ -225,8 +118,11 @@ const state = {
   currentQuestion: null,
   goodStreak: 0,
   mode: "question",
+  removalIds: new Set(),
   result: null,
   resultTimer: null,
+  rewardFactor: 1,
+  reviewMode: false,
   timer: null,
   timerEnded: false,
   timerRunning: false,
@@ -234,11 +130,6 @@ const state = {
 };
 const settings = {
   correctSound: "chime",
-  punishmentBase: 1,
-  punishmentLengthBase: 10,
-  punishmentLengthStep: 12,
-  punishmentScaling: "accelerated",
-  punishmentStep: 1,
   questionSeconds: 5,
   rewardBase: 10,
   rewardScaling: "accelerated",
@@ -251,21 +142,22 @@ const settings = {
 const nodes = {
   answer: document.getElementById("answerText"),
   bankSummary: document.getElementById("bankSummary"),
+  copyRemovalsButton: document.getElementById("copyRemovalsButton"),
   correctButton: document.getElementById("correctButton"),
   correctSound: document.getElementById("correctSound"),
   difficulty: document.getElementById("questionDifficulty"),
+  markRemoveButton: document.getElementById("markRemoveButton"),
   outcomeLabel: document.getElementById("outcomeLabel"),
   outcomePanel: document.getElementById("outcomePanel"),
   outcomeValue: document.getElementById("outcomeValue"),
   position: document.getElementById("questionPosition"),
   progress: document.getElementById("progressCount"),
   prompt: document.getElementById("questionPrompt"),
-  punishmentBase: document.getElementById("punishmentBase"),
-  punishmentLengthBase: document.getElementById("punishmentLengthBase"),
-  punishmentLengthStep: document.getElementById("punishmentLengthStep"),
-  punishmentScaling: document.getElementById("punishmentScaling"),
-  punishmentStep: document.getElementById("punishmentStep"),
   questionSeconds: document.getElementById("questionSeconds"),
+  removalOutput: document.getElementById("removalOutput"),
+  reviewCount: document.getElementById("reviewCount"),
+  reviewModeButton: document.getElementById("reviewModeButton"),
+  reviewPanel: document.getElementById("reviewPanel"),
   rewardBase: document.getElementById("rewardBase"),
   rewardScaling: document.getElementById("rewardScaling"),
   rewardStep: document.getElementById("rewardStep"),
@@ -294,11 +186,6 @@ function readSettings() {
   settings.rewardBase = getNumber(nodes.rewardBase, 10, 1, 600);
   settings.rewardStep = getNumber(nodes.rewardStep, 12, 0, 300);
   settings.rewardScaling = nodes.rewardScaling.value;
-  settings.punishmentBase = getNumber(nodes.punishmentBase, 1, 1, 99);
-  settings.punishmentStep = getNumber(nodes.punishmentStep, 1, 0, 20);
-  settings.punishmentScaling = nodes.punishmentScaling.value;
-  settings.punishmentLengthBase = getNumber(nodes.punishmentLengthBase, 10, 1, 600);
-  settings.punishmentLengthStep = getNumber(nodes.punishmentLengthStep, 12, 0, 300);
   settings.correctSound = nodes.correctSound.value;
   settings.wrongSound = nodes.wrongSound.value;
   settings.timerSound = nodes.timerSound.value;
@@ -316,6 +203,7 @@ function saveProgress() {
         badStreak: state.badStreak,
         currentQuestionId: state.currentQuestion ? state.currentQuestion.id : null,
         goodStreak: state.goodStreak,
+        rewardFactor: state.rewardFactor,
       }),
     );
   } catch {
@@ -334,12 +222,32 @@ function loadProgress() {
 
     const goodStreak = Number(saved.goodStreak);
     const badStreak = Number(saved.badStreak);
+    const rewardFactor = Number(saved.rewardFactor);
     state.goodStreak = Number.isFinite(goodStreak) ? Math.max(0, Math.trunc(goodStreak)) : 0;
     state.badStreak = Number.isFinite(badStreak) ? Math.max(0, Math.trunc(badStreak)) : 0;
+    state.rewardFactor = Number.isFinite(rewardFactor) ? Math.max(0.01, rewardFactor) : 1;
 
     return questionById.get(saved.currentQuestionId) || null;
   } catch {
     return null;
+  }
+}
+
+function loadReviewVotes() {
+  try {
+    const raw = localStorage.getItem(REVIEW_KEY);
+    const ids = raw ? JSON.parse(raw) : [];
+    state.removalIds = new Set(Array.isArray(ids) ? ids.filter((id) => questionById.has(id)) : []);
+  } catch {
+    state.removalIds = new Set();
+  }
+}
+
+function saveReviewVotes() {
+  try {
+    localStorage.setItem(REVIEW_KEY, JSON.stringify([...state.removalIds]));
+  } catch {
+    // Voting still works in memory if localStorage is unavailable.
   }
 }
 
@@ -362,11 +270,8 @@ function rewardFor(streak) {
   return Math.round(settings.rewardBase + growth(streak, settings.rewardStep, settings.rewardScaling));
 }
 
-function punishmentFor(streak) {
-  return {
-    intensity: Math.round(settings.punishmentBase + growth(streak, settings.punishmentStep, settings.punishmentScaling)),
-    length: Math.round(settings.punishmentLengthBase + growth(streak, settings.punishmentLengthStep, settings.punishmentScaling)),
-  };
+function currentRewardSeconds() {
+  return Math.max(1, Math.round(rewardFor(Math.max(1, state.goodStreak)) * state.rewardFactor));
 }
 
 function ensureAudio() {
@@ -483,6 +388,17 @@ function randomQuestion(excludeId = null) {
   return filtered[Math.floor(Math.random() * filtered.length)];
 }
 
+function updateReviewUi() {
+  nodes.reviewModeButton.textContent = state.reviewMode ? "Review on" : "Review off";
+  nodes.markRemoveButton.classList.toggle("hidden", !state.reviewMode);
+  nodes.copyRemovalsButton.classList.toggle("hidden", !state.reviewMode);
+  nodes.reviewPanel.classList.toggle("hidden", !state.reviewMode);
+  nodes.reviewCount.textContent = `${state.removalIds.size} marked`;
+  if (state.currentQuestion) {
+    nodes.markRemoveButton.textContent = state.removalIds.has(state.currentQuestion.id) ? "Unmark remove" : "Mark remove";
+  }
+}
+
 function setQuestion(question) {
   stopResultTimer();
   state.currentQuestion = question;
@@ -490,8 +406,8 @@ function setQuestion(question) {
   state.result = null;
   nodes.prompt.textContent = question.prompt;
   nodes.answer.textContent = question.answer;
-  nodes.difficulty.textContent = question.difficulty === "easy" ? "Easy" : "Medium";
-  nodes.position.textContent = `Question ${state.answeredIds.size + 1}`;
+  nodes.difficulty.textContent = question.category;
+  nodes.position.textContent = `${question.difficulty === "easy" ? "Easy" : "Medium"} · Question ${state.answeredIds.size + 1}`;
   nodes.outcomePanel.className = "outcome-panel neutral hidden";
   nodes.outcomeLabel.textContent = "";
   nodes.outcomeValue.textContent = "";
@@ -502,28 +418,16 @@ function setQuestion(question) {
   nodes.skipButton.classList.remove("hidden");
   nodes.nextButton.classList.add("hidden");
   setQuestionTimerIdle();
+  updateReviewUi();
   saveProgress();
 }
 
-function showReward() {
-  const seconds = rewardFor(Math.max(1, state.goodStreak));
-  nodes.outcomePanel.className = "outcome-panel good";
-  nodes.outcomeLabel.textContent = "Current reward";
+function showReward(label = "Current reward", style = "good") {
+  const seconds = currentRewardSeconds();
+  nodes.outcomePanel.className = `outcome-panel ${style}`;
+  nodes.outcomeLabel.textContent = label;
   nodes.outcomeValue.textContent = `${seconds}s`;
-  state.result = { type: "reward", duration: seconds, label: "Current reward", value: `${seconds}s` };
-}
-
-function showPunishment() {
-  const punishment = punishmentFor(Math.max(1, state.badStreak));
-  nodes.outcomePanel.className = "outcome-panel bad";
-  nodes.outcomeLabel.textContent = "Punishment";
-  nodes.outcomeValue.textContent = `Intensity ${punishment.intensity} / ${punishment.length}s`;
-  state.result = {
-    type: "punishment",
-    duration: punishment.length,
-    label: "Punishment",
-    value: `Intensity ${punishment.intensity} / ${punishment.length}s`,
-  };
+  state.result = { type: "reward", duration: seconds, label, value: `${seconds}s` };
 }
 
 function renderHeader() {
@@ -548,6 +452,7 @@ function showResultScreen() {
   nodes.wrongButton.classList.add("hidden");
   nodes.skipButton.classList.add("hidden");
   nodes.nextButton.classList.remove("hidden");
+  updateReviewUi();
   renderHeader();
 }
 
@@ -569,9 +474,9 @@ function gradeWrong() {
   playSound(settings.wrongSound);
   state.answeredIds.add(state.currentQuestion.id);
   state.badStreak += 1;
-  state.goodStreak = 0;
+  state.rewardFactor /= 2;
   saveProgress();
-  showPunishment();
+  showReward("Reward halved", "bad");
   showResultScreen();
 }
 
@@ -590,9 +495,46 @@ function restartQuiz() {
   state.goodStreak = 0;
   state.mode = "question";
   state.result = null;
+  state.rewardFactor = 1;
   clearProgress();
   renderHeader();
   setQuestion(randomQuestion());
+}
+
+function toggleReviewMode() {
+  state.reviewMode = !state.reviewMode;
+  updateReviewUi();
+}
+
+function toggleCurrentRemovalVote() {
+  if (!state.currentQuestion) return;
+  if (state.removalIds.has(state.currentQuestion.id)) {
+    state.removalIds.delete(state.currentQuestion.id);
+  } else {
+    state.removalIds.add(state.currentQuestion.id);
+  }
+  saveReviewVotes();
+  updateReviewUi();
+}
+
+function removalText() {
+  if (state.removalIds.size === 0) return "No questions marked for removal.";
+  return [...state.removalIds]
+    .map((id) => questionById.get(id))
+    .filter(Boolean)
+    .map((question) => `Remove: [${question.category}] ${question.prompt}\nAnswer: ${question.answer}`)
+    .join("\n\n");
+}
+
+function copyRemovals() {
+  const text = removalText();
+  nodes.removalOutput.classList.remove("hidden");
+  nodes.removalOutput.value = text;
+  nodes.removalOutput.focus();
+  nodes.removalOutput.select();
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).catch(() => {});
+  }
 }
 
 function updateResultCountdown(label, seconds) {
@@ -630,10 +572,8 @@ function runResultCountdown() {
 
 nodes.settingsForm.addEventListener("input", () => {
   readSettings();
-  if (state.mode === "result" && state.badStreak > 0) {
-    showPunishment();
-  } else if (state.mode === "result") {
-    showReward();
+  if (state.mode === "result") {
+    showReward(state.badStreak > 0 ? "Reward halved" : "Current reward", state.badStreak > 0 ? "bad" : "good");
   }
   if (state.mode === "question") {
     setQuestionTimerIdle();
@@ -645,6 +585,9 @@ nodes.wrongButton.addEventListener("click", gradeWrong);
 nodes.skipButton.addEventListener("click", skipQuestion);
 nodes.nextButton.addEventListener("click", nextQuestion);
 nodes.restartButton.addEventListener("click", restartQuiz);
+nodes.reviewModeButton.addEventListener("click", toggleReviewMode);
+nodes.markRemoveButton.addEventListener("click", toggleCurrentRemovalVote);
+nodes.copyRemovalsButton.addEventListener("click", copyRemovals);
 nodes.outcomePanel.addEventListener("click", runResultCountdown);
 nodes.outcomePanel.addEventListener("keydown", (event) => {
   if (event.key === "Enter" || event.key === " ") {
@@ -654,9 +597,11 @@ nodes.outcomePanel.addEventListener("keydown", (event) => {
 });
 
 readSettings();
+loadReviewVotes();
 const savedQuestion = loadProgress();
 renderHeader();
 setQuestion(savedQuestion && !state.answeredIds.has(savedQuestion.id) ? savedQuestion : randomQuestion());
+updateReviewUi();
 
 window.__quizStats = {
   easy: questions.filter((question) => question.difficulty === "easy").length,

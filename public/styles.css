@@ -176,7 +176,7 @@ label span {
 
 .actions {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 12px;
 }
 
@@ -204,6 +204,32 @@ label span {
 
 #nextButton {
   grid-column: 1 / -1;
+}
+
+.review-panel {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-strong);
+}
+
+.review-panel strong {
+  color: var(--muted);
+}
+
+textarea {
+  min-height: 210px;
+  width: 100%;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  color: var(--text);
+  background: #000;
+  font: inherit;
+  line-height: 1.45;
 }
 
 .settings {
