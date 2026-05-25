@@ -100,6 +100,12 @@ const questionSeeds = [
   ["Food", "What country is the origin of the sandwich?", "England", "medium"],
   ["Food", "What does the French phrase Bon Appetit mean?", "Enjoy your meal", "easy"],
   ["Food", "Which fruit gives the most potassium per serving?", "Bananas", "medium"],
+  ["Science", "What are the primary colors of light?", "Red, green, and blue", "easy"],
+  ["Geography", "Which ocean is the Indian Ocean connected to?", "Atlantic Ocean", "medium"],
+  ["Science", "Which gas do plants absorb from the atmosphere?", "Carbon dioxide", "easy"],
+  ["Science", "What is the most common gas in the Earth's atmosphere?", "Nitrogen", "medium"],
+  ["Science", "What is the speed of light?", "299,792 km/s", "medium"],
+  ["Space", "Which planet is known as the gas giant?", "Jupiter", "easy"],
 ];
 
 const STORAGE_KEY = "quiz-combo-desk-progress-v3";
