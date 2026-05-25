@@ -192,7 +192,7 @@ const state = {
   removalIds: new Set(),
   result: null,
   resultTimer: null,
-  rewardFactor: 1,
+  rewardSeconds: 1,
   reviewIndex: 0,
   timer: null,
   timerEnded: false,
@@ -286,7 +286,7 @@ function saveProgress() {
         badStreak: state.badStreak,
         currentQuestionId: state.currentQuestion ? state.currentQuestion.id : null,
         goodStreak: state.goodStreak,
-        rewardFactor: state.rewardFactor,
+        rewardSeconds: state.rewardSeconds,
       }),
     );
   } catch {
@@ -305,10 +305,10 @@ function loadProgress() {
 
     const goodStreak = Number(saved.goodStreak);
     const badStreak = Number(saved.badStreak);
-    const rewardFactor = Number(saved.rewardFactor);
+    const rewardSeconds = Number(saved.rewardSeconds);
     state.goodStreak = Number.isFinite(goodStreak) ? Math.max(0, Math.trunc(goodStreak)) : 0;
     state.badStreak = Number.isFinite(badStreak) ? Math.max(0, Math.trunc(badStreak)) : 0;
-    state.rewardFactor = Number.isFinite(rewardFactor) ? Math.max(0.01, rewardFactor) : 1;
+    state.rewardSeconds = Number.isFinite(rewardSeconds) ? Math.max(1, Math.round(rewardSeconds)) : rewardFor(Math.max(1, state.goodStreak));
 
     return questionById.get(saved.currentQuestionId) || null;
   } catch {
@@ -371,7 +371,7 @@ function rewardFor(streak) {
 }
 
 function currentRewardSeconds() {
-  return Math.max(1, Math.round(rewardFor(Math.max(1, state.goodStreak)) * state.rewardFactor));
+  return Math.max(1, Math.round(state.rewardSeconds));
 }
 
 function ensureAudio() {
@@ -565,6 +565,7 @@ function gradeCorrect() {
   state.answeredIds.add(state.currentQuestion.id);
   state.goodStreak += 1;
   state.badStreak = 0;
+  state.rewardSeconds = state.goodStreak === 1 ? rewardFor(1) : Math.max(1, Math.round(state.rewardSeconds * 2.1));
   saveProgress();
   showReward();
   showResultScreen();
@@ -576,7 +577,7 @@ function gradeWrong() {
   playSound(settings.wrongSound);
   state.answeredIds.add(state.currentQuestion.id);
   state.badStreak += 1;
-  state.rewardFactor /= 2;
+  state.rewardSeconds = Math.max(1, Math.round(state.rewardSeconds / 2));
   saveProgress();
   showReward("Reward halved", "bad");
   showResultScreen();
@@ -597,7 +598,7 @@ function restartQuiz() {
   state.goodStreak = 0;
   state.mode = "question";
   state.result = null;
-  state.rewardFactor = 1;
+  state.rewardSeconds = rewardFor(1);
   clearProgress();
   renderHeader();
   setQuestion(randomQuestion());
