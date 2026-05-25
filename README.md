@@ -20,7 +20,8 @@ Open `http://127.0.0.1:3000`.
 - Skip only moves to another question; it does not change streaks or progress.
 - Correct answers show the current reward time in green and wait for Next question.
 - Wrong answers keep question progress, halve the current reward, and wait for Next question.
-- Review mode lets the presenter mark questions for removal, then copy a removal list.
+- Review questions opens a separate review page with Keep and Remove buttons for every question.
+- The review page can copy keep or removal lists at any point; after the final question it shows only Finished and the copy buttons.
 - Clicking the reward panel starts a 5-second lead-in countdown, then the reward countdown. A sound plays when it finishes.
 - Defaults are `1s` lowest reward with accelerated reward scaling at `2.1x` per correct streak step.
 - Sounds for correct, wrong, and timer end are configurable in settings.

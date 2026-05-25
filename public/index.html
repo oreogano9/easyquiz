@@ -45,14 +45,33 @@
           <button id="skipButton" type="button">Skip</button>
           <button id="nextButton" class="hidden" type="button">Next question</button>
           <button id="restartButton" class="restart" type="button">Restart</button>
-          <button id="reviewModeButton" type="button">Review off</button>
-          <button id="markRemoveButton" class="hidden" type="button">Mark remove</button>
-          <button id="copyRemovalsButton" class="hidden" type="button">Copy removals</button>
+          <button id="startReviewButton" type="button">Review questions</button>
         </div>
+      </section>
 
-        <section id="reviewPanel" class="review-panel hidden">
-          <strong id="reviewCount">0 marked</strong>
-          <textarea id="removalOutput" class="hidden" readonly></textarea>
+      <section id="reviewPage" class="review-page hidden" aria-live="polite">
+        <div class="meta">
+          <span id="reviewPosition">Review 1 / 107</span>
+          <span id="reviewCategory">Category</span>
+        </div>
+        <h2 id="reviewPrompt"></h2>
+        <section class="answer-panel">
+          <p>Answer</p>
+          <strong id="reviewAnswer"></strong>
+        </section>
+        <div id="reviewActions" class="actions">
+          <button id="keepQuestionButton" class="correct" type="button">Keep</button>
+          <button id="removeQuestionButton" class="wrong" type="button">Remove</button>
+          <button id="copyKeepButton" type="button">Copy keep</button>
+          <button id="copyRemovalButton" type="button">Copy removal</button>
+          <button id="exitReviewButton" class="restart" type="button">Back to quiz</button>
+        </div>
+        <section id="reviewFinished" class="review-finished hidden">
+          <strong>Finished</strong>
+        </section>
+        <section id="reviewCopyPanel" class="review-panel hidden">
+          <strong id="reviewCopyLabel"></strong>
+          <textarea id="reviewCopyOutput" readonly></textarea>
         </section>
       </section>
 

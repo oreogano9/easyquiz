@@ -109,7 +109,7 @@ const questionSeeds = [
 ];
 
 const STORAGE_KEY = "quiz-combo-desk-progress-v3";
-const REVIEW_KEY = "quiz-combo-desk-review-v1";
+const REVIEW_KEY = "quiz-combo-desk-review-v2";
 const questions = questionSeeds.map(([category, prompt, answer, difficulty], index) => ({
   answer,
   category,
@@ -123,12 +123,13 @@ const state = {
   badStreak: 0,
   currentQuestion: null,
   goodStreak: 0,
+  keepIds: new Set(),
   mode: "question",
   removalIds: new Set(),
   result: null,
   resultTimer: null,
   rewardFactor: 1,
-  reviewMode: false,
+  reviewIndex: 0,
   timer: null,
   timerEnded: false,
   timerRunning: false,
@@ -148,11 +149,13 @@ const settings = {
 const nodes = {
   answer: document.getElementById("answerText"),
   bankSummary: document.getElementById("bankSummary"),
-  copyRemovalsButton: document.getElementById("copyRemovalsButton"),
+  copyKeepButton: document.getElementById("copyKeepButton"),
+  copyRemovalButton: document.getElementById("copyRemovalButton"),
   correctButton: document.getElementById("correctButton"),
   correctSound: document.getElementById("correctSound"),
   difficulty: document.getElementById("questionDifficulty"),
-  markRemoveButton: document.getElementById("markRemoveButton"),
+  exitReviewButton: document.getElementById("exitReviewButton"),
+  keepQuestionButton: document.getElementById("keepQuestionButton"),
   outcomeLabel: document.getElementById("outcomeLabel"),
   outcomePanel: document.getElementById("outcomePanel"),
   outcomeValue: document.getElementById("outcomeValue"),
@@ -160,15 +163,25 @@ const nodes = {
   progress: document.getElementById("progressCount"),
   prompt: document.getElementById("questionPrompt"),
   questionSeconds: document.getElementById("questionSeconds"),
-  removalOutput: document.getElementById("removalOutput"),
-  reviewCount: document.getElementById("reviewCount"),
-  reviewModeButton: document.getElementById("reviewModeButton"),
-  reviewPanel: document.getElementById("reviewPanel"),
+  removeQuestionButton: document.getElementById("removeQuestionButton"),
+  reviewActions: document.getElementById("reviewActions"),
+  reviewAnswer: document.getElementById("reviewAnswer"),
+  reviewCategory: document.getElementById("reviewCategory"),
+  reviewCopyLabel: document.getElementById("reviewCopyLabel"),
+  reviewCopyOutput: document.getElementById("reviewCopyOutput"),
+  reviewCopyPanel: document.getElementById("reviewCopyPanel"),
+  reviewFinished: document.getElementById("reviewFinished"),
+  reviewPage: document.getElementById("reviewPage"),
+  reviewPosition: document.getElementById("reviewPosition"),
+  reviewPrompt: document.getElementById("reviewPrompt"),
   rewardBase: document.getElementById("rewardBase"),
   rewardScaling: document.getElementById("rewardScaling"),
   restartButton: document.getElementById("restartButton"),
+  settings: document.querySelector(".settings"),
   settingsForm: document.getElementById("settingsForm"),
   skipButton: document.getElementById("skipButton"),
+  stage: document.querySelector(".stage"),
+  startReviewButton: document.getElementById("startReviewButton"),
   startTimerButton: document.getElementById("startTimerButton"),
   nextButton: document.getElementById("nextButton"),
   timer: document.getElementById("timerDisplay"),
@@ -240,16 +253,30 @@ function loadProgress() {
 function loadReviewVotes() {
   try {
     const raw = localStorage.getItem(REVIEW_KEY);
-    const ids = raw ? JSON.parse(raw) : [];
-    state.removalIds = new Set(Array.isArray(ids) ? ids.filter((id) => questionById.has(id)) : []);
+    const saved = raw ? JSON.parse(raw) : null;
+    const removalIds = Array.isArray(saved) ? saved : saved && Array.isArray(saved.removalIds) ? saved.removalIds : [];
+    const keepIds = saved && Array.isArray(saved.keepIds) ? saved.keepIds : [];
+    const reviewIndex = saved && Number(saved.reviewIndex);
+    state.removalIds = new Set(removalIds.filter((id) => questionById.has(id)));
+    state.keepIds = new Set(keepIds.filter((id) => questionById.has(id)));
+    state.reviewIndex = Number.isFinite(reviewIndex) ? Math.min(questions.length, Math.max(0, Math.trunc(reviewIndex))) : 0;
   } catch {
     state.removalIds = new Set();
+    state.keepIds = new Set();
+    state.reviewIndex = 0;
   }
 }
 
 function saveReviewVotes() {
   try {
-    localStorage.setItem(REVIEW_KEY, JSON.stringify([...state.removalIds]));
+    localStorage.setItem(
+      REVIEW_KEY,
+      JSON.stringify({
+        keepIds: [...state.keepIds],
+        removalIds: [...state.removalIds],
+        reviewIndex: state.reviewIndex,
+      }),
+    );
   } catch {
     // Voting still works in memory if localStorage is unavailable.
   }
@@ -395,17 +422,6 @@ function randomQuestion(excludeId = null) {
   return filtered[Math.floor(Math.random() * filtered.length)];
 }
 
-function updateReviewUi() {
-  nodes.reviewModeButton.textContent = state.reviewMode ? "Review on" : "Review off";
-  nodes.markRemoveButton.classList.toggle("hidden", !state.reviewMode);
-  nodes.copyRemovalsButton.classList.toggle("hidden", !state.reviewMode);
-  nodes.reviewPanel.classList.toggle("hidden", !state.reviewMode);
-  nodes.reviewCount.textContent = `${state.removalIds.size} marked`;
-  if (state.currentQuestion) {
-    nodes.markRemoveButton.textContent = state.removalIds.has(state.currentQuestion.id) ? "Unmark remove" : "Mark remove";
-  }
-}
-
 function setQuestion(question) {
   stopResultTimer();
   state.currentQuestion = question;
@@ -425,7 +441,6 @@ function setQuestion(question) {
   nodes.skipButton.classList.remove("hidden");
   nodes.nextButton.classList.add("hidden");
   setQuestionTimerIdle();
-  updateReviewUi();
   saveProgress();
 }
 
@@ -459,7 +474,6 @@ function showResultScreen() {
   nodes.wrongButton.classList.add("hidden");
   nodes.skipButton.classList.add("hidden");
   nodes.nextButton.classList.remove("hidden");
-  updateReviewUi();
   renderHeader();
 }
 
@@ -508,37 +522,83 @@ function restartQuiz() {
   setQuestion(randomQuestion());
 }
 
-function toggleReviewMode() {
-  state.reviewMode = !state.reviewMode;
-  updateReviewUi();
-}
-
-function toggleCurrentRemovalVote() {
-  if (!state.currentQuestion) return;
-  if (state.removalIds.has(state.currentQuestion.id)) {
-    state.removalIds.delete(state.currentQuestion.id);
-  } else {
-    state.removalIds.add(state.currentQuestion.id);
+function showQuizPage() {
+  nodes.stage.classList.remove("hidden");
+  nodes.settings.classList.remove("hidden");
+  nodes.reviewPage.classList.add("hidden");
+  if (state.currentQuestion) {
+    setQuestion(state.currentQuestion);
   }
-  saveReviewVotes();
-  updateReviewUi();
 }
 
-function removalText() {
-  if (state.removalIds.size === 0) return "No questions marked for removal.";
-  return [...state.removalIds]
+function showReviewPage() {
+  stopTimer();
+  stopResultTimer();
+  nodes.stage.classList.add("hidden");
+  nodes.settings.classList.add("hidden");
+  nodes.reviewPage.classList.remove("hidden");
+  renderReviewQuestion();
+}
+
+function renderReviewQuestion() {
+  const finished = state.reviewIndex >= questions.length;
+  nodes.reviewFinished.classList.toggle("hidden", !finished);
+  nodes.keepQuestionButton.classList.toggle("hidden", finished);
+  nodes.removeQuestionButton.classList.toggle("hidden", finished);
+  nodes.exitReviewButton.classList.toggle("hidden", finished);
+  nodes.reviewPrompt.classList.toggle("hidden", finished);
+  nodes.reviewAnswer.closest(".answer-panel").classList.toggle("hidden", finished);
+  nodes.reviewCategory.classList.toggle("hidden", finished);
+  nodes.reviewPosition.textContent = finished ? "Finished" : `Review ${state.reviewIndex + 1} / ${questions.length}`;
+
+  if (finished) {
+    nodes.reviewCopyPanel.classList.add("hidden");
+    nodes.reviewCategory.textContent = "";
+    nodes.reviewPrompt.textContent = "";
+    nodes.reviewAnswer.textContent = "";
+    return;
+  }
+
+  const question = questions[state.reviewIndex];
+  nodes.reviewCategory.textContent = question.category;
+  nodes.reviewPrompt.textContent = question.prompt;
+  nodes.reviewAnswer.textContent = question.answer;
+  nodes.reviewCopyPanel.classList.add("hidden");
+}
+
+function voteReview(choice) {
+  if (state.reviewIndex >= questions.length) return;
+  const question = questions[state.reviewIndex];
+  if (choice === "remove") {
+    state.removalIds.add(question.id);
+    state.keepIds.delete(question.id);
+  } else {
+    state.keepIds.add(question.id);
+    state.removalIds.delete(question.id);
+  }
+  state.reviewIndex += 1;
+  saveReviewVotes();
+  renderReviewQuestion();
+}
+
+function reviewListText(kind) {
+  const ids = kind === "keep" ? state.keepIds : state.removalIds;
+  if (ids.size === 0) return `No questions marked to ${kind}.`;
+  const prefix = kind === "keep" ? "Keep" : "Remove";
+  return [...ids]
     .map((id) => questionById.get(id))
     .filter(Boolean)
-    .map((question) => `Remove: [${question.category}] ${question.prompt}\nAnswer: ${question.answer}`)
+    .map((question) => `${prefix}: [${question.category}] ${question.prompt}\nAnswer: ${question.answer}`)
     .join("\n\n");
 }
 
-function copyRemovals() {
-  const text = removalText();
-  nodes.removalOutput.classList.remove("hidden");
-  nodes.removalOutput.value = text;
-  nodes.removalOutput.focus();
-  nodes.removalOutput.select();
+function copyReviewList(kind) {
+  const text = reviewListText(kind);
+  nodes.reviewCopyPanel.classList.remove("hidden");
+  nodes.reviewCopyLabel.textContent = kind === "keep" ? "Keep list" : "Removal list";
+  nodes.reviewCopyOutput.value = text;
+  nodes.reviewCopyOutput.focus();
+  nodes.reviewCopyOutput.select();
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(text).catch(() => {});
   }
@@ -592,9 +652,12 @@ nodes.wrongButton.addEventListener("click", gradeWrong);
 nodes.skipButton.addEventListener("click", skipQuestion);
 nodes.nextButton.addEventListener("click", nextQuestion);
 nodes.restartButton.addEventListener("click", restartQuiz);
-nodes.reviewModeButton.addEventListener("click", toggleReviewMode);
-nodes.markRemoveButton.addEventListener("click", toggleCurrentRemovalVote);
-nodes.copyRemovalsButton.addEventListener("click", copyRemovals);
+nodes.startReviewButton.addEventListener("click", showReviewPage);
+nodes.exitReviewButton.addEventListener("click", showQuizPage);
+nodes.keepQuestionButton.addEventListener("click", () => voteReview("keep"));
+nodes.removeQuestionButton.addEventListener("click", () => voteReview("remove"));
+nodes.copyKeepButton.addEventListener("click", () => copyReviewList("keep"));
+nodes.copyRemovalButton.addEventListener("click", () => copyReviewList("remove"));
 nodes.outcomePanel.addEventListener("click", runResultCountdown);
 nodes.outcomePanel.addEventListener("keydown", (event) => {
   if (event.key === "Enter" || event.key === " ") {
@@ -608,7 +671,6 @@ loadReviewVotes();
 const savedQuestion = loadProgress();
 renderHeader();
 setQuestion(savedQuestion && !state.answeredIds.has(savedQuestion.id) ? savedQuestion : randomQuestion());
-updateReviewUi();
 
 window.__quizStats = {
   easy: questions.filter((question) => question.difficulty === "easy").length,

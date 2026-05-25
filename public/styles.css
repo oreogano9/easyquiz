@@ -52,6 +52,7 @@ button {
 
 .topbar,
 .stage,
+.review-page,
 .settings {
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -94,7 +95,8 @@ label span {
   font-size: 1.35rem;
 }
 
-.stage {
+.stage,
+.review-page {
   display: grid;
   gap: 24px;
   margin-top: 16px;
@@ -121,6 +123,14 @@ label span {
 }
 
 #questionPrompt {
+  min-height: 170px;
+  font-size: clamp(2.4rem, 5vw, 5.8rem);
+  line-height: 1.04;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+#reviewPrompt {
   min-height: 170px;
   font-size: clamp(2.4rem, 5vw, 5.8rem);
   line-height: 1.04;
@@ -215,8 +225,23 @@ label span {
   background: var(--panel-strong);
 }
 
-.review-panel strong {
+.review-panel strong,
+.review-finished strong {
   color: var(--muted);
+}
+
+.review-finished {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-strong);
+}
+
+.review-finished strong {
+  font-size: clamp(3rem, 8vw, 8rem);
+  color: var(--text);
 }
 
 textarea {
@@ -303,7 +328,8 @@ select {
     justify-items: start;
   }
 
-  #questionPrompt {
+  #questionPrompt,
+  #reviewPrompt {
     min-height: 0;
     font-size: clamp(2.1rem, 10vw, 4rem);
   }
