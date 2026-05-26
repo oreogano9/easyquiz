@@ -95,6 +95,41 @@ label span {
   font-size: 1.35rem;
 }
 
+.header-controls {
+  display: grid;
+  justify-items: end;
+  gap: 12px;
+}
+
+.version-switch {
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(54px, 1fr));
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-strong);
+}
+
+.version-switch a {
+  display: grid;
+  min-height: 38px;
+  padding: 0 14px;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.version-switch a.active {
+  border-color: var(--text);
+  color: var(--text);
+  background: #171717;
+}
+
 .stage,
 .review-page {
   display: grid;
@@ -357,6 +392,10 @@ select {
   }
 
   .progress {
+    justify-items: start;
+  }
+
+  .header-controls {
     justify-items: start;
   }
 
